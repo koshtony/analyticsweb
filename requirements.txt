@@ -7,4 +7,5 @@ streamlit==0.86.0
 camelot-py[base]
 Pillow==8.3.2
 tabula-py
+beautifulsoup4==4.9.3
 opencv-python-headless
