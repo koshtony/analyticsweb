@@ -2,9 +2,10 @@ import streamlit as st
 from page1 import page_1
 from scraper_html import scraped,csv_download,scrape_pdf
 from page2 import page_2
+from page3 import streamer
 from PIL import Image
 st.sidebar.write("**pages navigator**")
-side_b=st.sidebar.radio("",["scraping","cleaning","Analysis"])
+side_b=st.sidebar.radio("",["scraping","cleaning","Tracker","Analysis"])
 if side_b=="scraping":
     page_1()
 if side_b=="cleaning":
@@ -16,3 +17,5 @@ if side_b=="cleaning":
     * Removing outliers
     """)
     page_2()
+if side_b=="Tracker":
+    streamer()

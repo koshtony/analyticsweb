@@ -16,12 +16,6 @@ def page_2():
     col2,col3=st.columns((1,1))
     uploads=col2.file_uploader("upload csv file",type=["csv","xlsx","xls","txt"])
     cal_radio=col1.radio("cleaning",["check nullity","remove na values","replace na values","replace and remove","detect outliers"])
-    plots=col1.line_chart()
-    i=0
-    while True:
-        i+=1
-        plots.add_rows(np.array([[curr()]]))
-        time.sleep(0.5)
     if cal_radio=="check nullity":
         try:
         #up_file=open("upload.txt","w")

@@ -2,6 +2,7 @@ import streamlit as st
 from scraper_html import scraped,csv_download,scrape_pdf
 from PIL import Image
 from tabula import read_pdf
+from googlesearch import search
 def page_1():
     global col1
     colm=st.sidebar
@@ -62,6 +63,15 @@ def page_1():
     col3.write("""
             **scrape tables from pdf**
             """)
+    sach=col2.text_input("search data")
+    if col2.button("search"):
+        try:
+            search_results=search(sach)
+            for res in search_results:
+                col2.write(res)
+        except Exception as e:
+            col2.write(e)
+            col2.write("search not found")
     upload_file=col3.file_uploader("upload pdf file",['pdf'])
     col3.write(""" **or enter pdf online url** """)
     url2=col3.text_input("copy pdf url here")
