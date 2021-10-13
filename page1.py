@@ -20,8 +20,7 @@ def page_1():
     * github:
     * Linkedin:
     * Facebook:
-    * Twitter:
-
+    * Twitter
     """)
     expnd3=colm3.expander("Services")
     expnd3.markdown("""

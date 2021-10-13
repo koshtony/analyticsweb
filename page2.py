@@ -11,11 +11,16 @@ from datetime import datetime
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import time
+from desc import desc_anal
+from visuals import graphs
+from infer import inferential
 def page_2():
     col1=st.sidebar
     col2,col3=st.columns((1,1))
     uploads=col2.file_uploader("upload csv file",type=["csv","xlsx","xls","txt"])
-    cal_radio=col1.radio("cleaning",["check nullity","remove na values","replace na values","replace and remove","detect outliers"])
+    cal_radio=col1.radio("cleaning->Analysis->modelling",["check nullity","remove columns",
+    "replace empty cells (na)","replace and remove empty cells (na)",
+    "detect outliers","Descriptive statistics","Visualisation","Inferential statistics"])
     if cal_radio=="check nullity":
         try:
         #up_file=open("upload.txt","w")
@@ -36,7 +41,7 @@ def page_2():
             -----------------------------------------
             """)
 
-    elif cal_radio=="remove na values":
+    elif cal_radio=="remove columns":
         try:
             remove_na(uploads,col2)
         except:
@@ -87,8 +92,8 @@ def page_2():
             """)
 
     elif cal_radio=="detect outliers":
-        cleans=col2.selectbox("is your data already clean ?",["yes","no"])
-        if cleans=="yes":
+        cleans=col2.selectbox("is your data already clean ?",["detect as it is","detect preprocessed data"])
+        if cleans=="detect as it is":
             try:
                 detect_outliers(upload_csv(uploads),col3)
             except Exception as e:
@@ -106,9 +111,11 @@ def page_2():
                 -----------------------------------------
                 """)
 
-        elif cleans=="no":
-            col2.write("clean using the options above")
-            col3.markdown("""
+        elif cleans=="detect preprocessed data":
+            try:
+                detect_outliers(new_data,col3)
+            except:
+                col3.markdown("""
             -----------------------------------------
             -----------------------------------------
             -----------------------------------------
@@ -120,24 +127,35 @@ def page_2():
             -----------------------------------------
             """)
 
-        else:
-
+    elif cal_radio=="Descriptive statistics":
+        choice=col2.selectbox("choose data",["use uploaded data as it is","use data you have preprocessed"])
+        if choice=="use uploaded data as it is":
             try:
-                detect_outliers(new_data,col3)
-            except Exception as error:
-            #col3.write(error)
-                col3.write("**selection error!! ensure you select appropriate option**")
-                col3.markdown("""
-                -----------------------------------------
-                -----------------------------------------
-                -----------------------------------------
-                -----------------------------------------
+                desc_anal(upload_csv(uploads),col2,col3)
+            except Exception as e:
+                col2.write("no file uploaded yet")
+        elif choice=="use data you have preprocessed":
+            try:
+                desc_anal(new_data,col2,col3)
+            except:
+                col2.write("no preprocessing carried out")
+    elif cal_radio=="Visualisation":
+        choices=col2.selectbox("choose data",["use uploaded data as it is","use data you have preprocessed"])
+        if choices=="use uploaded data as it is":
+            try:
+                graphs(upload_csv(uploads))
+            except Exception as e:
+                col2.write(e)
+        elif choices=="use data you have preprocessed":
+            try:
+                graphs(new_data)
+            except Exception as e:
+                col2.write(e)
+    elif cal_radio=="Inferential statistics":
+        inferential()
 
-                -------plots and tables here !!----------
-                -----------------------------------------
-                -----------------------------------------
-                -----------------------------------------
-                """)
+
+
 
 
 
@@ -152,6 +170,7 @@ def upload_csv(uploads):
             return data
         except Exception as e:
             st.write("----try loading correct file format | file not found----")
+    ret_data()
 def check_na(file):
             df=upload_csv(file)
             null=df.isnull().any()
@@ -168,6 +187,7 @@ def remove_na(file,col):
         new_data=dat.drop(all_cols,axis=1)
         col.write(""" download the cleaned file """)
         col.markdown(csv_download(new_data),unsafe_allow_html=True)
+        passer(new_data)
 def replace_na(file,colu):
     global new_data
     data=upload_csv(file)
@@ -176,6 +196,7 @@ def replace_na(file,colu):
         m_n=data[rep_with].mean()
         new_data=data.fillna(m_n)
         colu.markdown(csv_download(new_data),unsafe_allow_html=True)
+        passer(new_data)
 def some_some(file,cols):
     global new_data
     deta=upload_csv(file)
@@ -190,6 +211,7 @@ def some_some(file,cols):
         new_data=new_da.fillna(mean_s)
         cols.write("**selected columns have been successfully removed and replaced**")
         cols.markdown(csv_download(new_data),unsafe_allow_html=True)
+        passer(new_data)
 def detect_outliers(data,clm):
     sel_plot=clm.selectbox("select column to detect outliers",data.columns)
     clm.write(sel_plot)
