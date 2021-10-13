@@ -26,7 +26,7 @@ def page_2():
         #up_file=open("upload.txt","w")
         #up_c=up_file.write(str(uploads.name))
             null_df=check_na(uploads)
-            col3.write(null_df)
+            st.write(null_df)
         except:
             col2.write("**no file uploaded**")
             col3.markdown("""
@@ -58,7 +58,7 @@ def page_2():
                 -----------------------------------------
             """)
 
-    elif cal_radio=="replace na values":
+    elif cal_radio=="replace empty cells (na)":
         try:
             replace_na(uploads,col2)
         except:
@@ -74,7 +74,7 @@ def page_2():
                 -----------------------------------------
                 -----------------------------------------
             """)
-    elif cal_radio=="replace and remove":
+    elif cal_radio=="replace and remove empty cells (na)":
         try:
             some_some(uploads,col2)
         except Exception as err:

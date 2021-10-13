@@ -4,6 +4,7 @@ import streamlit as st
 import math
 import scipy.stats as stat
 from z_test import ztests,two_sample_z
+from t_test import ttest
 def inferential():
     data=["col1","col2"]
     st.header("-------HYPOTHESES TESTING-------")
@@ -37,5 +38,6 @@ def inferential():
 
 
 
-        elif type_rad=="Two sample t-test":
-            pass
+    elif c1_rad=="T-test":
+            t=ttest(col1,col2,conf,ho,h1)
+            t.one_samp()
