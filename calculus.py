@@ -11,6 +11,8 @@ def calc():
     calc1=st.sidebar
     calc2,calc3=st.columns((1,1))
     calc2.write("**Differentiation**")
+    calc1.write("**video example**")
+    calc1.video("instr.webm")
     with_res=calc2.text_input("Differentiate: with respect to")
     calc3.write("**Integration**")
     int_no=calc3.slider("number of integrations",0,3)
