@@ -10,7 +10,6 @@ tabula-py
 beautifulsoup4==4.9.3
 opencv-python-headless
 scipy
-math
 statsmodels
 sympy
 datetime
