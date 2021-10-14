@@ -50,7 +50,7 @@ def calc():
             ims=Image.open('fig.png')
             calc2.image(ims,width=300)
     except:
-        calc2.write("something not right ....check out the guidelines")
+        calc2.warning("The input fields are empty..if not kindly check out the guidelines.")
 
     try:
         calc3.write("------------------------------")
@@ -69,7 +69,7 @@ def calc():
             calc3.write(integrate(equation,tuple(fst1),tuple(s2),tuple(thrd)))
 
     except Exception as err:
-        calc3.write("something not right ....check out the guidelines")
+        calc3.warning("The input fields are empty..if not kindly check out the guidelines.")
     calc2.write("**Limits**")
     calc3.write("**Series Expansion**")
     lim=calc2.text_input("limit equation")
@@ -84,7 +84,7 @@ def calc():
                 calc2.write(">>>>solution>>>>")
                 calc2.write(limit(lim,val,oo))
             except:
-                calc2.write("something not right ....check out the guidelines")
+                calc2.warning("The input fields are empty..if not kindly check out the guidelines.")
         else:
             try:
                 calc2.write(">>>>equation>>>>")
@@ -92,7 +92,7 @@ def calc():
                 calc2.write(">>>>solution>>>>")
                 calc2.write(limit(lim,val,app))
             except:
-                calc2.write("something not right ....check out the guidelines")
+                calc2.warning("The input fields are empty..if not kindly check out the guidelines.")
     if rd=="-":
         if app=="infinity":
             try:
@@ -101,7 +101,7 @@ def calc():
                 calc2.write(">>>>solution>>>>")
                 calc2.write(limit(lim,val,oo,'-'))
             except:
-                calc2.write("something not right ....check out the guidelines")
+                calc2.warning("The input fields are empty..if not kindly check out the guidelines.")
         else:
             try:
                 calc2.write(">>>>equation>>>>")
@@ -109,7 +109,7 @@ def calc():
                 calc2.write(">>>>solution>>>>")
                 calc2.write(limit(lim,val,app,'-'))
             except:
-                calc2.write("something not right ....check out the guidelines")
+                calc2.warning("The input fields are empty..if not kindly check out the guidelines.")
     series_eq=calc3.text_input("Initialize Series")
     val=calc3.text_input("variable:")
     from_=calc3.text_input("from:")
@@ -120,5 +120,5 @@ def calc():
         calc3.write(sq)
         calc3.write(sq.series(val,from_,to))
     except Exception as err:
-        st.write(err)
-        calc3.write("something not right ....check out the guidelines")
+        #st.write(err)
+        calc3.warning("The input fields are empty..if not kindly check out the guidelines.")

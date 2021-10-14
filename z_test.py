@@ -24,7 +24,7 @@ class ztests:
             x=[float(x) for x in x]
             sd_x=np.std(x)
             x_bar=np.mean(x)
-            z_score=(np.mean(x)-mu)/(sd_x/math.sqrt(len(x)))
+            z_score=(np.mean(x)-mu)//(sd_x//math.sqrt(len(x)))
             st.info("Result")
             st.write(self.ho)
             st.write(self.h1)
@@ -34,44 +34,44 @@ class ztests:
             if detect(self.h1)==1:
                 st.info("Right tailed test detected")
                 z_tab=stat.norm.ppf(self.conf/100)
-                sample1_z_dec(z_score, z_tab,type=">")
+                sample1_z_dec(z_score, z_tab,type=">",test="z-score=")
             elif detect(self.h1)==2:
                 st.info("Left tailed test detected")
                 z_tab=stat.norm.ppf(self.conf/100)
-                sample1_z_dec(z_score, z_tab, type="<")
+                sample1_z_dec(z_score, z_tab, type="<",test="z-score=")
             elif detect(self.h1)==3:
                 st.info("two tailed test detected")
                 alpha=(self.conf/100)+((100-(self.conf))//2)//100
                 z_tab=stat.norm.ppf(alpha)
-                sample1_z_dec(z_score, z_tab,type="not")
+                sample1_z_dec(z_score, z_tab,type="not",test="z-score=")
 class two_sample_z(ztests):
     def __init__(self,col1,col2,conf,ho,h1):
         super().__init__(col1,col2,conf,ho,h1)
 
 
-def sample1_z_dec(z_score,z_tab,type):
+def sample1_z_dec(z_score,z_tab,type,test):
     if type==">" or type=="not":
         if z_score >= z_tab:
-            deci="z-score= "+str(z_score)+" > "+" critical value= "+str(z_tab)
+            deci=test+str(z_score)+" > "+" critical value= "+str(z_tab)
             st.info(deci)
             st.info("Reject the Ho")
             st.write("-----------------------------------")
         else:
-            deci="z-score= "+str(z_score)+" < "+" critical value= "+str(z_tab)
+            deci=test+str(z_score)+" < "+" critical value= "+str(z_tab)
             st.info(deci)
             st.info("Fail to Reject the Ho")
             st.write("-----------------------------------")
     elif type=="<":
         if z_score <= z_tab:
-            deci="z-score= "+str(z_score)+" < "+" critical value= "+str(z_tab)
+            deci=test+str(z_score)+" < "+" critical value= "+str(z_tab)
             st.info(deci)
             st.info("Reject the Ho")
             st.write("-----------------------------------")
         else:
-            deci="z-score= "+str(z_score)+" > "+" critical value= "+str(z_tab)
+            deci=test+str(z_score)+" > "+" critical value= "+str(z_tab)
             st.info(deci)
             st.info("Fail to Reject the Ho")
-            st.write("-----------------------------------")
+            st.write("- ----------------------------------")
 
 
 def detect(sent):

@@ -26,12 +26,12 @@ def inferential():
     "Wilcoxon Signed Rank","The Kruskal-Wallis Test","Spearman Rank Test","chi-test"])
 
     if c1_rad=="Z-test":
-        type_rad=c1.radio("",["one sample test","Two sample test"])
-        if type_rad=="one sample test":
+        type_rad=c1.radio("",["one sample z-test","Two sample z-test"])
+        if type_rad=="one sample z-test":
             z=ztests(col1,col2,conf,ho,h1)
             z.one_sample_z()
 
-        elif type_rad=="Two sample test":
+        elif type_rad=="Two sample z-test":
             two=two_sample_z(col1,col2,conf,ho,h1)
             two.one_sample_z()
 
@@ -39,5 +39,13 @@ def inferential():
 
 
     elif c1_rad=="T-test":
+        t_rad=c1.radio("",["one sample t-test","independent sample t-test","paired t-test"])
+        if t_rad=="one sample t-test":
             t=ttest(col1,col2,conf,ho,h1)
             t.one_samp()
+        elif t_rad=="independent sample t-test":
+            t=ttest(col1,col2,conf,ho,h1)
+            t.ind_2_sample()
+        elif t_rad=="paired t-test":
+            t=ttest(col1,col2,conf,ho,h1)
+            t.paired_t_test()
