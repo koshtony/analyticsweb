@@ -15,12 +15,13 @@ from desc import desc_anal
 from visuals import graphs
 from infer import inferential
 def page_2():
+    uploads=st.file_uploader("upload data file",type=["csv","xlsx","xls","txt"])
     col1=st.sidebar
     col2,col3=st.columns((1,1))
-    uploads=col2.file_uploader("upload csv file",type=["csv","xlsx","xls","txt"])
     cal_radio=col1.radio("cleaning->Analysis->modelling",["check nullity","remove columns",
     "replace empty cells (na)","replace and remove empty cells (na)",
     "detect outliers","Descriptive statistics","Visualisation","Inferential statistics"])
+    d=pd.DataFrame([""],columns=["no data"])
     if cal_radio=="check nullity":
         try:
         #up_file=open("upload.txt","w")
@@ -28,6 +29,7 @@ def page_2():
             null_df=check_na(uploads)
             st.write(null_df)
         except:
+            #check_na(d)
             col2.write("**no file uploaded**")
             col3.markdown("""
             -----------------------------------------
@@ -152,7 +154,10 @@ def page_2():
             except Exception as e:
                 col2.write(e)
     elif cal_radio=="Inferential statistics":
-        inferential()
+        try:
+            inferential(upload_csv(uploads))
+        except:
+            inferential(d)
 
 
 

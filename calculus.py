@@ -8,17 +8,22 @@ def calc():
     x,y,z,t=symbols('x y z t')
     init_printing(use_unicode=True)
     equation=st.text_input("add equation here")
+    equation=str(equation).lower()
     calc1=st.sidebar
     calc2,calc3=st.columns((1,1))
     calc2.write("**Differentiation**")
     calc1.write("**video example**")
     calc1.video("instr.webm")
     with_res=calc2.text_input("Differentiate: with respect to")
+    with_res=with_res.lower()
     calc3.write("**Integration**")
     int_no=calc3.slider("number of integrations",0,3)
     fst1,s2,thrd=[],[],[]
     for i in range(int_no):
         with_res_to=calc1.text_input("input "+str(i+1)+" .integrate: with respect to:")
+        with_res_to=with_res_to.lower(
+        
+        )
         lower_lim=calc1.text_input("lower limit "+str(i+1))
         upper_lim=calc1.text_input("upper limit "+str(i+1))
         if i==0:
@@ -75,7 +80,9 @@ def calc():
     calc2.write("**Limits**")
     calc3.write("**Series Expansion**")
     lim=calc2.text_input("limit equation")
+    lim=lim.lower
     val=calc2.text_input("variable i.e x,y..")
+    val=val.lower
     app=calc2.text_input("approaching")
     rd=calc2.radio("",["+","-"])
     if rd=="+":

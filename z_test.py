@@ -10,40 +10,53 @@ class ztests:
         self.ho=ho
         self.h1=h1
     def one_sample_z(self):
-            mu=self.col1.split(',')
-            mu=[float(mu) for mu in mu]
-            if len(mu)==1:
-                mu=mu[0]
-                st.info("one sample z-test")
-            elif len(mu)>1:
-                mu=np.mean(mu)
-                st.info("two sample z-test")
+            if type(self.col1)==str:
+                mu=self.col1.split(',')
+                mu=[float(mu) for mu in mu]
+                if len(mu)==1:
+                    mu=mu[0]
+                    st.info("one sample z-test")
+                elif len(mu)>1:
+                    mu=np.mean(mu)
+                    st.info("two sample z-test")
+                else:
+                    info.warning("no inputs yet..having trouble! check guidelines")
             else:
-                info.warning("no inputs yet..having trouble! check guidelines")
-            x=self.col2.split(',')
-            x=[float(x) for x in x]
-            sd_x=np.std(x)
-            x_bar=np.mean(x)
-            z_score=(np.mean(x)-mu)//(sd_x//math.sqrt(len(x)))
-            st.info("Result")
-            st.write(self.ho)
-            st.write(self.h1)
-            st.write("-----------------------------------")
-            st.info("Z-score= "+str(z_score))
-            st.write("-----------------------------------")
-            if detect(self.h1)==1:
-                st.info("Right tailed test detected")
-                z_tab=stat.norm.ppf(self.conf/100)
-                sample1_z_dec(z_score, z_tab,type=">",test="z-score=")
-            elif detect(self.h1)==2:
-                st.info("Left tailed test detected")
-                z_tab=stat.norm.ppf(self.conf/100)
-                sample1_z_dec(z_score, z_tab, type="<",test="z-score=")
-            elif detect(self.h1)==3:
-                st.info("two tailed test detected")
-                alpha=(self.conf/100)+((100-(self.conf))//2)//100
-                z_tab=stat.norm.ppf(alpha)
-                sample1_z_dec(z_score, z_tab,type="not",test="z-score=")
+                try:
+                    mu=np.mean(self.col1)
+                    st.info("two sample z-test")
+                except:
+                    st.warning("The data selected is not numerical")
+            if type(self.col2)==str:
+                x=self.col2.split(',')
+                x=[float(x) for x in x]
+            else:
+                x=self.col2
+            try:
+                sd_x=np.std(x)
+                x_bar=np.mean(x)
+                z_score=(x_bar-mu)/(sd_x/math.sqrt(len(x)))
+                st.info("Result")
+                st.write(self.ho)
+                st.write(self.h1)
+                st.write("-----------------------------------")
+                st.info("Z-score= "+str(z_score))
+                st.write("-----------------------------------")
+                if detect(self.h1)==1:
+                    st.info("Right tailed test detected")
+                    z_tab=stat.norm.ppf(self.conf/100)
+                    sample1_z_dec(z_score, z_tab,type=">",test="z-score=")
+                elif detect(self.h1)==2:
+                    st.info("Left tailed test detected")
+                    z_tab=stat.norm.ppf(self.conf/100)
+                    sample1_z_dec(z_score, z_tab, type="<",test="z-score=")
+                elif detect(self.h1)==3:
+                    st.info("two tailed test detected")
+                    alpha=(self.conf/100)+((100-(self.conf))//2)//100
+                    z_tab=stat.norm.ppf(alpha)
+                    sample1_z_dec(z_score, z_tab,type="not",test="z-score=")
+            except:
+                st.error("error encountered kindly check out the above warning, guideline")
 class two_sample_z(ztests):
     def __init__(self,col1,col2,conf,ho,h1):
         super().__init__(col1,col2,conf,ho,h1)
