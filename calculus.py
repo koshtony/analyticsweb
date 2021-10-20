@@ -22,7 +22,7 @@ def calc():
     for i in range(int_no):
         with_res_to=calc1.text_input("input "+str(i+1)+" .integrate: with respect to:")
         with_res_to=with_res_to.lower(
-        
+
         )
         lower_lim=calc1.text_input("lower limit "+str(i+1))
         upper_lim=calc1.text_input("upper limit "+str(i+1))
