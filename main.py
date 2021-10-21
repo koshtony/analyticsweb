@@ -6,12 +6,14 @@ from page3 import streamer
 from PIL import Image
 from ltx import editor
 from calculus import calc
-st.get_option("theme.textColor")
+st.get_option("theme.textColor") #load custom theme
+st.info("set your browser to desktop mode (recommended) if you are using phone")
 st.sidebar.write("**pages navigator**")
+#set page navigator using radio button
 side_b=st.sidebar.radio("",["scraping","Cleaning->Analysis->Modelling","calculus","Latex Editor"])
-if side_b=="scraping":
+if side_b=="scraping": #call scrapping section
     page_1()
-if side_b=="Cleaning->Analysis->Modelling":
+if side_b=="Cleaning->Analysis->Modelling": #analysis section
     exp=st.expander("Cleaning->Analysis->Modelling")
     exp.write("""
     **Cleaning datasets**
@@ -20,7 +22,7 @@ if side_b=="Cleaning->Analysis->Modelling":
     * Removing outliers
     """)
     page_2()
-if side_b=="calculus":
+if side_b=="calculus":#calculus section
     calc()
 
 if side_b=="Latex Editor":
