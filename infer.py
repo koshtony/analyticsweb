@@ -1,11 +1,13 @@
 from statsmodels.stats import weightstats as ws
 import numpy as np
 import streamlit as st
+import seaborn as sb
 import math
 import scipy.stats as stat
 from z_test import ztests,two_sample_z
 from t_test import ttest
 from anova_t import anova
+from corr import pearson_corr
 def inferential(data):
     st.header("-------HYPOTHESES TESTING-------")
     cl=st.sidebar
@@ -28,6 +30,7 @@ def inferential(data):
     data_c2=[]
     data_c3=[]
     if len(str(col1))==0 or len(str(col1))==0 or len(str(col1))==0:
+        st.warning("upload mode")
         for i in data[sel1]:
             data_c1.append(i)
         col1=data_c1
@@ -38,6 +41,7 @@ def inferential(data):
             data_c3.append(i)
         col3=data_c3
     else:
+        st.warning('input mode')
         col3,col3,col3=col3,col3,col3
     if c1_rad=="Z-test":
         type_rad=c1.radio("",["one sample z-test","Two sample z-test"])
@@ -61,18 +65,21 @@ def inferential(data):
             t=ttest(col1,col2,conf,ho,h1)
             t.ind_2_sample()
         elif t_rad=="paired t-test":
+            t=ttest(col1,col2,conf,ho,h1)
+            t.paired_t_test()
             st.write("section under repair")
     elif c1_rad=="Anova":
         anv_rad=c1.radio("",["one way","Two way"])
         if anv_rad=="one way":
-            num_anv=c1.radio("",["three groups","more groups"])
-            if num_anv=="three groups":
-                try:
-                    tes=anova(data,col1,col2,col3)
-                    tes.one_way()
-                except Exception as e:
-                    st.write(e)
-            elif num_anv=="more groups":
-                    st.write("section under repair")
+            try:
+                test=anova(data,col1,col2,col3)
+                test.one_way()
+            except Exception as e:
+                pass
+                #st.error("kindly check out guidelines")
+
+
         elif anv_rad=="Two way":
             pass
+    if c1_rad=='Pearson Correlation Test':
+        pearson_corr(col1, col2, conf)

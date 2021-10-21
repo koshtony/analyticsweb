@@ -26,9 +26,9 @@ class anova: #performs anova test
         st.write(anv)
         st.info('Pairwise Comparison')
         st.write(model.t_test_pairwise('groups').result_frame)
-    def more_one_way(self):
-        formula=self.col1+"~"+self.col
-        model=ols(formula,data=self.data).fit()
+def more_one_way(data,sel1,sel2):
+        formula=sel1+"~"+sel1
+        model=ols(formula,data=data).fit()
         anv=sm.stats.anova_lm(model,typ=2)
         st.write(anv)
         st.info('Pairwise Comparison')
