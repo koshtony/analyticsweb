@@ -87,4 +87,5 @@ def paired_det(pval,alpha): # decision in t-test based on p-value
         st.info(f"p-value is  {pval}  < alpha  {alpha} " )
         st.info("reject H0:")
     else:
+        st.info(f"p-value is  {pval}  > alpha  {alpha} " )
         st.info("Fail to Reject H0:")

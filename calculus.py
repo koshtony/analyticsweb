@@ -20,12 +20,13 @@ def calc():
     int_no=calc3.slider("number of integrations",0,3)
     fst1,s2,thrd=[],[],[]
     for i in range(int_no):
-        with_res_to=calc1.text_input("input "+str(i+1)+" .integrate: with respect to:")
+
+        with_res_to=calc3.text_input("input "+str(i+1)+" .integrate: with respect to:")
         with_res_to=with_res_to.lower(
 
         )
-        lower_lim=calc1.text_input("lower limit "+str(i+1))
-        upper_lim=calc1.text_input("upper limit "+str(i+1))
+        lower_lim=calc3.text_input("lower limit "+str(i+1))
+        upper_lim=calc3.text_input("upper limit "+str(i+1))
         if i==0:
                 fst1.append([with_res_to,lower_lim,upper_lim])
 
@@ -57,7 +58,7 @@ def calc():
             ims=Image.open('fig.png')
             calc2.image(ims,width=300)
     except:
-        calc2.warning("The input fields are empty..if not kindly check out the guidelines.")
+        pass
 
     try:
         calc3.write("------------------------------")
@@ -76,13 +77,12 @@ def calc():
             calc3.write(integrate(equation,tuple(fst1),tuple(s2),tuple(thrd)))
 
     except Exception as err:
-        calc3.warning("The input fields are empty..if not kindly check out the guidelines.")
+        pass
     calc2.write("**Limits**")
-    calc3.write("**Series Expansion**")
     lim=calc2.text_input("limit equation")
-    lim=lim.lower
+    lim=lim.lower()
     val=calc2.text_input("variable i.e x,y..")
-    val=val.lower
+    val=val.lower()
     app=calc2.text_input("approaching")
     rd=calc2.radio("",["+","-"])
     if rd=="+":
@@ -92,8 +92,8 @@ def calc():
                 calc2.write(Limit(lim,val,oo))
                 calc2.write(">>>>solution>>>>")
                 calc2.write(limit(lim,val,oo))
-            except:
-                calc2.warning("The input fields are empty..if not kindly check out the guidelines.")
+            except Exception as e:
+                pass
         else:
             try:
                 calc2.write(">>>>equation>>>>")
@@ -101,7 +101,7 @@ def calc():
                 calc2.write(">>>>solution>>>>")
                 calc2.write(limit(lim,val,app))
             except:
-                calc2.warning("The input fields are empty..if not kindly check out the guidelines.")
+                pass
     if rd=="-":
         if app=="infinity":
             try:
@@ -110,7 +110,7 @@ def calc():
                 calc2.write(">>>>solution>>>>")
                 calc2.write(limit(lim,val,oo,'-'))
             except:
-                calc2.warning("The input fields are empty..if not kindly check out the guidelines.")
+                pass
         else:
             try:
                 calc2.write(">>>>equation>>>>")
@@ -118,16 +118,6 @@ def calc():
                 calc2.write(">>>>solution>>>>")
                 calc2.write(limit(lim,val,app,'-'))
             except:
-                calc2.warning("The input fields are empty..if not kindly check out the guidelines.")
-    series_eq=calc3.text_input("Initialize Series")
-    val=calc3.text_input("variable:")
-    from_=calc3.text_input("from:")
-    to=calc3.text_input("to:")
-    try:
-        calc3.write(">>>>Expanded Series >>>>")
-        sq=parse_expr(series_eq)
-        calc3.write(sq)
-        calc3.write(sq.series(val,from_,to))
-    except Exception as err:
-        #st.write(err)
-        calc3.warning("The input fields are empty..if not kindly check out the guidelines.")
+                pass
+
+        #pass

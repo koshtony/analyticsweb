@@ -10,7 +10,7 @@ st.get_option("theme.textColor") #load custom theme
 st.info("set your browser to desktop mode (recommended) if you are using phone")
 st.sidebar.write("**pages navigator**")
 #set page navigator using radio button
-side_b=st.sidebar.radio("",["scraping","Cleaning->Analysis->Modelling","calculus","Latex Editor"])
+side_b=st.sidebar.radio("",["scraping","Cleaning->Analysis->Modelling","calculus","Algebra"])
 if side_b=="scraping": #call scrapping section
     page_1()
 if side_b=="Cleaning->Analysis->Modelling": #analysis section
@@ -25,5 +25,12 @@ if side_b=="Cleaning->Analysis->Modelling": #analysis section
 if side_b=="calculus":#calculus section
     calc()
 
-if side_b=="Latex Editor":
-    editor()
+if side_b=="Algebra":
+    st.header("Algebra")
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)

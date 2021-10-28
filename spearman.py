@@ -1,11 +1,7 @@
-from t_test import paired_det
-import seaborn as sb
-import matplotlib.pyplot as plt
-import streamlit as st
 import scipy.stats as stat
-import numpy as np
-#Pearson correlation
-def pearson_corr(col1,col2,conf,ho,h1):
+from t_test import paired_det
+import streamlit as st
+def spear_corr(col1,col2,conf,ho,h1):
     if type(col1)==str:
         # converts input to list
         try:
@@ -22,8 +18,8 @@ def pearson_corr(col1,col2,conf,ho,h1):
             pass
 
 def cal_corr(col1,col2,conf,ho,h1):#correlation using the scipy
-    st.header("PEARSON CORRELATION")
-    corr=stat.pearsonr(col1,col2)
+    st.header("SPEARMAN RANK CORRELATION")
+    corr=stat.spearmanr(col1,col2)
     c,r=corr
     st.info(ho)
     st.info(h1)

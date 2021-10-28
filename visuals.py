@@ -1,6 +1,7 @@
 import streamlit as st
 import seaborn as sb
 import matplotlib.pyplot as plt
+@st.cache(suppress_st_warning=True)
 def graphs(data):
     v=st.sidebar
     v1,v2,v3=st.columns((1,1,1))
