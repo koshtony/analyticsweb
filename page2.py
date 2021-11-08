@@ -14,13 +14,14 @@ import time
 from desc import desc_anal
 from visuals import graphs
 from infer import inferential
+from models import models_
 def page_2():
     uploads=st.file_uploader("upload data file",type=["csv","xlsx","xls","txt"])
     col1=st.sidebar
     col2,col3=st.columns((1,1))
     cal_radio=col1.radio("cleaning->Analysis->modelling",["check nullity","remove columns",
     "replace empty cells (na)","replace and remove empty cells (na)",
-    "detect outliers","Descriptive statistics","Visualisation","Inferential statistics"])
+    "detect outliers","Descriptive statistics","Visualisation","Hypotheses Testing","Regression Models"])
     d=pd.DataFrame([""],columns=["no data"])
     if cal_radio=="check nullity":
         try:
@@ -153,16 +154,23 @@ def page_2():
                 graphs(new_data)
             except Exception as e:
                 col2.write(e)
-    elif cal_radio=="Inferential statistics":
+    elif cal_radio=="Hypotheses Testing":
         try:
             inferential(upload_csv(uploads))
         except:
             inferential(d)
-
-
-
-
-
+    elif cal_radio=="Regression Models":
+        data_choice=col1.selectbox("",["use uploaded data","use already preprocessed data"])
+        if data_choice=="use uploaded data":
+            try:
+                models_(upload_csv(uploads),col1,col2,col3)
+            except Exception as e:
+                st.write(e)
+        elif data_choice=="use already preprocessed data":
+            try:
+                models_(new_data,col1,col2,col3)
+            except Exception as e:
+                st.write(e)
 
 
 def upload_csv(uploads):
