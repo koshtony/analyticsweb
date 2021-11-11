@@ -14,14 +14,16 @@ import time
 from desc import desc_anal
 from visuals import graphs
 from infer import inferential
-from models import models_
+from reg_models import models_
+from tree_models import t_models
 def page_2():
     uploads=st.file_uploader("upload data file",type=["csv","xlsx","xls","txt"])
     col1=st.sidebar
     col2,col3=st.columns((1,1))
     cal_radio=col1.radio("cleaning->Analysis->modelling",["check nullity","remove columns",
     "replace empty cells (na)","replace and remove empty cells (na)",
-    "detect outliers","Descriptive statistics","Visualisation","Hypotheses Testing","Regression Models"])
+    "detect outliers","Descriptive statistics",
+    "Visualisation","Hypotheses Testing","Regression Models","Tree Models"])
     d=pd.DataFrame([""],columns=["no data"])
     if cal_radio=="check nullity":
         try:
@@ -171,6 +173,19 @@ def page_2():
                 models_(new_data,col1,col2,col3)
             except Exception as e:
                 st.write(e)
+    elif cal_radio=="Tree Models":
+        data_choice=col1.selectbox("",["use uploaded data","use already preprocessed data"])
+        if data_choice=="use uploaded data":
+            try:
+                t_models(upload_csv(uploads),col1,col2,col3)
+            except Exception as e:
+                st.write(e)
+        elif data_choice=="use already preprocessed data":
+            try:
+                t_models(new_data,col1,col2,col3)
+            except Exception as e:
+                st.write(e)
+
 
 
 def upload_csv(uploads):
