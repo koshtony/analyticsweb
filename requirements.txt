@@ -16,3 +16,5 @@ sympy
 datetime
 googlesearch-python
 researchpy
+pydotplus
+six
