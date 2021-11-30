@@ -1,5 +1,5 @@
 import streamlit as st
-from tree_reg import tree_reg
+from tree_reg import tree_reg,forest_reg
 from tree_models import fet_imp_plot
 from splitter import split_data
 from PIL import Image
@@ -24,3 +24,12 @@ def t_regressor(data,col1,col2,col3,testsize): # creating tree regression model 
         t_reg_im=Image.open("tree_reg.png")
         st.info("regression tree diagram")
         st.image(t_reg_im,caption="regression tree")
+    elif tree_reg_type=="Random Forest":
+        st.write("Training--->")
+        progress=st.progress(0)
+        for i in range(100):
+            forest=forest_reg(x_tr,y_tr,x_te,y_te)
+            time.sleep(0.01)
+            progress.progress(i+1)
+        fet_imp_plot(forest.train_mod())
+        st.info("mean squared error: "+str(forest.evaluate()))
