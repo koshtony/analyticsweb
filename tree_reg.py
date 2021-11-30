@@ -33,4 +33,4 @@ class forest_reg(forest):
         return self.train_mod().feature_importances
     @st.cache
     def evaluate(self):
-        return met.mean_squared_error(self.yt,self.traim_mod().predict(self.xt))
+        return met.mean_squared_error(self.yt,self.train_mod().predict(self.xt))
