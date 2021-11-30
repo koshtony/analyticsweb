@@ -17,7 +17,7 @@ from infer import inferential
 from reg_models import models_
 from tree_models import t_models
 from tree_reg_models  import t_regressor
-from knn_models import knn_entry
+from knn_model import knn_entry
 def page_2():
     uploads=st.file_uploader("upload data file",type=["csv","xlsx","xls","txt"])
     col1=st.sidebar
