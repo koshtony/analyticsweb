@@ -32,5 +32,5 @@ def t_regressor(data,col1,col2,col3,testsize): # creating tree regression model 
             forest=forest_reg(x_tr,y_tr,x_te,y_te,est)
             time.sleep(0.01)
             progress.progress(i+1)
-        fet_imp_plot(forest.train_mod())
+        #fet_imp_plot(forest.train_mod())
         st.info("mean squared error: "+str(forest.evaluate()))
