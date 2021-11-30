@@ -1,5 +1,5 @@
 from sklearn.tree import DecisionTreeRegressor,export_graphviz
-from sklearn.emsemble import RandomForestRegressor as RFR
+from sklearn.ensemble import RandomForestRegressor as RFR
 from dec_tree import tree_class
 import sklearn.metrics as met
 from six import StringIO
