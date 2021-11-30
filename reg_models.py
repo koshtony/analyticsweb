@@ -7,13 +7,10 @@ import pandas as pd
 def models_(data,col1,col2,col3):
     sel_x=col2.multiselect("X",data.columns)
     sel_y=col2.selectbox("Y",data.columns)
-    model_type=col1.radio("models",["Linear Regression","Logistic Regression","General Linear Models"])
+    model_type=col1.radio("models",["Linear Regression","General Linear Models"])
     if model_type=="Linear Regression":
         mod_class=lin_mod(data[sel_x],data[sel_y])
         mod_class.model_imp()
-    elif model_type=="Logistic Regression":
-        log_class=logit(data[sel_x],data[sel_y])
-        log_class.logit_imp()
     elif model_type=="General Linear Models":
         glm_type=col2.radio("GLM models",["Gamma","Poisson","Binomial","Negative Binomial"])
         y=pd.get_dummies(data[sel_y]).iloc[:,0]
