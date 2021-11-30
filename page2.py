@@ -16,6 +16,7 @@ from visuals import graphs
 from infer import inferential
 from reg_models import models_
 from tree_models import t_models
+from tree_reg_models  import t_regressor
 def page_2():
     uploads=st.file_uploader("upload data file",type=["csv","xlsx","xls","txt"])
     col1=st.sidebar
@@ -23,8 +24,9 @@ def page_2():
     cal_radio=col1.radio("cleaning->Analysis->modelling",["check nullity","remove columns",
     "replace empty cells (na)","replace and remove empty cells (na)",
     "detect outliers","Descriptive statistics",
-    "Visualisation","Hypotheses Testing","Regression Models","Tree Models"])
+    "Visualisation","Hypotheses Testing","Regression Models","Tree Classification Models","Tree Regression Models"])
     d=pd.DataFrame([""],columns=["no data"])
+    testsize=col1.select_slider("test size",[0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5])
     if cal_radio=="check nullity":
         try:
         #up_file=open("upload.txt","w")
@@ -173,16 +175,28 @@ def page_2():
                 models_(new_data,col1,col2,col3)
             except Exception as e:
                 st.write(e)
-    elif cal_radio=="Tree Models":
+    elif cal_radio=="Tree Classification Models":
         data_choice=col1.selectbox("",["use uploaded data","use already preprocessed data"])
         if data_choice=="use uploaded data":
             try:
-                t_models(upload_csv(uploads),col1,col2,col3)
+                t_models(upload_csv(uploads),col1,col2,col3,testsize)
             except Exception as e:
                 st.write(e)
         elif data_choice=="use already preprocessed data":
             try:
-                t_models(new_data,col1,col2,col3)
+                t_models(new_data,col1,col2,col3,testsize)
+            except Exception as e:
+                st.write(e)
+    elif cal_radio=="Tree Regression Models":
+        data_choice=col1.selectbox("",["use uploaded data","use already preprocessed data"])
+        if data_choice=="use uploaded data":
+            try:
+                t_regressor(upload_csv(uploads),col1,col2,col3,testsize)
+            except Exception as e:
+                st.write(e)
+        elif data_choice=="use already preprocessed data":
+            try:
+                t_regressor(new_data,col1,col2,col3,testsize)
             except Exception as e:
                 st.write(e)
 

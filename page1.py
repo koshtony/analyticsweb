@@ -31,8 +31,7 @@ def page_1():
     * Model Development
 
     """)
-    ims=Image.open('gs.png')
-    st.image(ims,width=800)
+
     st.write("""
     **Scrapes tables from websites and pdfs** """ )
     col1=st.sidebar
