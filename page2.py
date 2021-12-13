@@ -18,6 +18,7 @@ from reg_models import models_
 from tree_models import t_models
 from tree_reg_models  import t_regressor
 from knn_model import knn_entry
+from svm_models import svm_gui
 def page_2():
     uploads=st.file_uploader("upload data file",type=["csv","xlsx","xls","txt"])
     col1=st.sidebar
@@ -26,7 +27,7 @@ def page_2():
     "replace empty cells (na)","replace and remove empty cells (na)",
     "detect outliers","Descriptive statistics",
     "Visualisation","Hypotheses Testing","Regression Models",
-    "Tree Classification Models","Tree Regression Models","knn-model"])
+    "Tree Classification Models","Tree Regression Models","knn-model","SVM model"])
     d=pd.DataFrame([""],columns=["no data"])
     testsize=col1.select_slider("test size",[0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5])
     if cal_radio=="check nullity":
@@ -213,6 +214,19 @@ def page_2():
                 knn_entry(new_data,col1,col2,col3,testsize)
             except Exception as e:
                 st.write(e)
+    elif cal_radio=="SVM model":
+        data_choice=col1.selectbox("",["use uploaded data","use already preprocessed data"])
+        if data_choice=="use uploaded data":
+            try:
+                svm_gui(upload_csv(uploads),col1,col2,col3,testsize)
+            except Exception as e:
+                st.write(e)
+        elif data_choice=="use already preprocessed data":
+            try:
+                svm_gui(new_data,col1,col2,col3,testsize)
+            except Exception as e:
+                st.write(e)
+
 
 
 
