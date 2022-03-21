@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import base64
 from tabula import read_pdf
-import camelot
+#import camelot
 def scraped(url,table_no):
     html_df=pd.read_html(url,header=0)
     df=html_df[table_no]
