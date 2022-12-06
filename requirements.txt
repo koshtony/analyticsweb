@@ -1,5 +1,5 @@
 seaborn==0.11.1
-sklearn
+scikit-learn
 matplotlib==3.3.4
 tabula_py==2.3.0
 pandas==1.2.3
