@@ -19,3 +19,4 @@ researchpy
 pydotplus
 six
 lxml
+html5lib
